@@ -14,6 +14,7 @@ import { Switch } from "@base-ui/react/switch";
 import { Slider } from "@base-ui/react/slider";
 import { NumberField } from "@base-ui/react/number-field";
 import { Select } from "@base-ui/react/select";
+import { Field } from "@base-ui/react/field";
 
 // ─── Shared SVG Icons ─────────────────────────────────────────────────────────
 
@@ -525,7 +526,10 @@ function SliderDemo() {
       {/* Range slider */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-foreground">
+          <span
+            id="price-range-label"
+            className="text-sm font-medium text-foreground"
+          >
             Price Range
           </span>
           <span className="text-sm tabular-nums text-muted">
@@ -533,7 +537,11 @@ function SliderDemo() {
             {Array.isArray(rangeValue) ? rangeValue[1] : rangeValue}
           </span>
         </div>
-        <Slider.Root defaultValue={[20, 75]} onValueChange={setRangeValue}>
+        <Slider.Root
+          defaultValue={[20, 75]}
+          onValueChange={setRangeValue}
+          aria-labelledby="price-range-label"
+        >
           <Slider.Control className={sliderControl}>
             <Slider.Track className={sliderTrack}>
               <Slider.Indicator className={sliderIndicator} />
@@ -614,10 +622,10 @@ const frameworks = [
 
 function SelectDemo() {
   return (
-    <div className="flex w-full flex-col gap-1.5">
-      <div className="cursor-default text-sm font-medium text-foreground">
+    <Field.Root className="flex w-full flex-col gap-1.5">
+      <Field.Label className="cursor-default text-sm font-medium text-foreground">
         Framework
-      </div>
+      </Field.Label>
       <Select.Root items={frameworks}>
         <Select.Trigger className="flex h-10 min-w-48 items-center justify-between gap-3 rounded-md border border-border bg-background pr-3 pl-3.5 text-sm text-foreground select-none hover:bg-surface transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-[popup-open]:bg-surface">
           <Select.Value
@@ -656,7 +664,7 @@ function SelectDemo() {
           </Select.Positioner>
         </Select.Portal>
       </Select.Root>
-    </div>
+    </Field.Root>
   );
 }
 

@@ -29,13 +29,11 @@ function AvatarExample({ src, initials, size }: AvatarExampleProps) {
     <Avatar.Root
       className={`inline-flex items-center justify-center overflow-hidden rounded-full bg-surface-active font-medium text-foreground select-none ${sizeClasses[size]}`}
     >
-      {src && (
-        <Avatar.Image
-          src={src}
-          alt={`Avatar for ${initials}`}
-          className="size-full object-cover"
-        />
-      )}
+      <Avatar.Image
+        src={src}
+        alt={`Avatar for ${initials}`}
+        className="size-full object-cover"
+      />
       <Avatar.Fallback className="flex size-full items-center justify-center">
         {initials}
       </Avatar.Fallback>
@@ -185,7 +183,7 @@ function ScrollAreaDemo() {
   return (
     <ScrollArea.Root className="h-48 w-full max-w-md">
       <ScrollArea.Viewport className="h-full rounded-lg border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring">
-        <div className="flex flex-col gap-4 py-4 pr-6 pl-4 text-sm leading-relaxed text-foreground">
+        <ScrollArea.Content className="flex flex-col gap-4 py-4 pr-6 pl-4 text-sm leading-relaxed text-foreground">
           <p>
             <strong className="font-semibold">Vernacular architecture</strong>{" "}
             is building done outside any academic tradition, and without
@@ -215,7 +213,7 @@ function ScrollAreaDemo() {
             conscious with contemporary design and construction -- part of a
             broader interest in sustainable design.
           </p>
-        </div>
+        </ScrollArea.Content>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar className="m-2 flex w-1 justify-center rounded bg-gray-200 opacity-0 transition-opacity duration-150 pointer-events-none data-[hovering]:pointer-events-auto data-[hovering]:opacity-100 data-[hovering]:delay-0 data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-0 dark:bg-gray-700">
         <ScrollArea.Thumb className="w-full rounded bg-gray-500 dark:bg-gray-400" />
