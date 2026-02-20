@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* Exclude documentation dirs from Tailwind content scanning */
+@source not "../../base-ui-docs";
+@source not "../../docs";
+
+/* ============================================
+   Theme Configuration (Tailwind v4)
+   ============================================ */
+
+:root {
+  /* Base colors */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+
+  /* Surface colors */
+  --surface: #f9fafb;
+  --surface-hover: #f3f4f6;
+  --surface-active: #e5e7eb;
+
+  /* Border colors */
+  --border: #e5e7eb;
+  --border-hover: #d1d5db;
+
+  /* Primary colors */
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
+  --primary-foreground: #ffffff;
+
+  /* Muted colors */
+  --muted: #6b7280;
+  --muted-foreground: #9ca3af;
+
+  /* Focus ring */
+  --ring: #3b82f6;
+  --ring-offset: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    --surface: #171717;
+    --surface-hover: #262626;
+    --surface-active: #404040;
+
+    --border: #2e2e2e;
+    --border-hover: #404040;
+
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --primary-foreground: #ffffff;
+
+    --muted: #a1a1aa;
+    --muted-foreground: #71717a;
+
+    --ring: #3b82f6;
+    --ring-offset: #0a0a0a;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-ring: var(--ring);
+  --color-ring-offset: var(--ring-offset);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    var(--font-geist-sans),
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* ============================================
+   Base UI Global Overrides
+   ============================================
+   Base UI is unstyled by default. These provide
+   sensible defaults for popup/portal elements.
+   ============================================ */
+
+/* Smooth transitions for Base UI popups */
+[data-starting-style] {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Focus visible ring for Base UI interactive elements */
+[data-base-ui] :focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Base UI CSS Variable Utilities
+   ============================================
+   Turbopack's CSS parser can't handle Tailwind
+   arbitrary values with CSS variables. These
+   custom classes provide the same functionality.
+   ============================================ */
+
+.h-accordion-panel {
+  height: var(--accordion-panel-height);
+}
+
+.h-collapsible-panel {
+  height: var(--collapsible-panel-height);
+}
+
+.max-h-available {
+  max-height: var(--available-height);
+}
+
+.h-popup-height {
+  height: var(--popup-height, auto);
+}
+
+.w-popup-width {
+  width: var(--popup-width, auto);
+}
+
+.h-popup-height-exact {
+  height: var(--popup-height);
+}
+
+.w-popup-width-exact {
+  width: var(--popup-width);
+}
+
+.h-positioner-height {
+  height: var(--positioner-height);
+}
+
+.w-positioner-width {
+  width: var(--positioner-width);
+}
+
+.max-w-available-width {
+  max-width: var(--available-width);
+}
+
+.h-toast-height {
+  height: var(--height);
+}
+
+.h-toast-height-expanded {
+  height: var(--toast-height);
+}
