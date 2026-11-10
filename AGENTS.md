@@ -50,13 +50,18 @@
 
 ### Gotchas
 
-| Issue                                                          | Fix                                                                                        |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Turbopack can't parse `h-[var(...)]` arbitrary Tailwind values | Use custom CSS classes in globals.css (`.h-accordion-panel`, `.max-h-available`, etc.)     |
-| Tailwind v4 scans markdown files for class names → invalid CSS | Add `@source not "../../base-ui-docs";` to globals.css                                     |
-| Base UI components render nothing without styles               | Must style EVERY sub-part — there are zero defaults                                        |
-| Dev server lock file stale after crash                         | Delete `.next/dev/lock`                                                                    |
-| Toast CSS is very long                                         | Copy from base-ui-docs/toast.md — too many transform/swipe calculations for manual writing |
+| Issue                                                          | Fix                                                                                                                                               |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Turbopack can't parse `h-[var(...)]` arbitrary Tailwind values | Use custom CSS classes in globals.css (`.h-accordion-panel`, `.max-h-available`, etc.)                                                            |
+| Tailwind v4 scans markdown files for class names → invalid CSS | Add `@source not "../../base-ui-docs";` to globals.css                                                                                            |
+| Base UI components render nothing without styles               | Must style EVERY sub-part — there are zero defaults                                                                                               |
+| Dev server lock file stale after crash                         | Delete `.next/dev/lock`                                                                                                                           |
+| Toast CSS is very long                                         | Copy from base-ui-docs/toast.md — too many transform/swipe calculations for manual writing                                                        |
+| Select needs accessible label                                  | Wrap in `Field.Root` + `Field.Label` — bare `<div>` labels aren't associated by screen readers                                                    |
+| Avatar.Image should always render                              | Don't conditionally render `{src && <Avatar.Image>}` — always mount it, component handles fallback                                                |
+| ScrollArea needs Content sub-part                              | Use `ScrollArea.Viewport > ScrollArea.Content > children`, not a plain `<div>`                                                                    |
+| Drawer swipe CSS is complex                                    | Must use `--drawer-swipe-movement-x`, `--drawer-swipe-progress`, `--drawer-swipe-strength` CSS vars + `--bleed` pattern for proper swipe gestures |
+| Range Slider needs aria-labelledby                             | Add `id` to visible label + `aria-labelledby` on `Slider.Root` for accessibility                                                                  |
 
 ### Custom CSS Utilities (globals.css)
 
@@ -68,6 +73,21 @@ These replace `h-[var(--name)]` patterns that Turbopack can't parse:
 - `.h-toast-height` → `height: var(--height)`
 - `.h-toast-height-expanded` → `height: var(--toast-height)`
 
+### Skills
+
+- `~/.claude/skills/base-ui-skills/` — Claude Code skill for building Base UI components
+  - `SKILL.md` — core concepts, data attrs, CSS vars
+  - `COMPONENTS.md` — all 36 component APIs
+  - `STYLING.md` — Tailwind recipes
+  - `ANIMATIONS.md` — animation patterns
+  - `GOTCHAS.md` — 22 known issues + fixes
+
+### Audit Results (2026-02-20)
+
+Full audit of all 36 components against official Base UI docs: **0 CRITICAL, 0 WARNING (all fixed), 10 INFO (acceptable)**.
+Components confirmed clean: Button, Input, Checkbox, CheckboxGroup, Radio, Switch, NumberField, Tooltip, ContextMenu, Tabs, Menu, Menubar, Toolbar, Accordion, Toggle, ToggleGroup, Field, Fieldset, Combobox, Progress, Meter, Toast, Collapsible, Separator.
+
 ### Session Log
 
 - 2026-02-20: Built complete Base UI playground with 36 components across 6 categories. Created base-ui-skills Claude Code skill. Fixed Turbopack CSS var parsing issues.
+- 2026-02-20: Full audit against docs — found 8 warnings, fixed 6 real issues (2 were false positives). Select accessibility, Slider aria-labelledby, Drawer swipe CSS, Avatar fallback pattern, ScrollArea.Content.
